@@ -1,0 +1,48 @@
+---
+title: "Stage 2: Initial Data Exploration Part 3"
+author: 
+  - "Julia Laney"
+date: 2026-10-20
+---
+
+## Part 3
+
+### Question: How many offenses were logged in each county in 2025?
+
+```{python}
+import pandas as pd
+from pyprojroot import here
+
+#importing crime dataset
+file_path = here('projects/wa-state-police-social-spending/_data/wa_crime_2025.csv')
+crime_2025 = pd.read_csv(file_path)
+```
+
+'crime_2025' is a dataset containing observations of all offenses logged by every police department in Washington in 2025. Each offense also notes the county corresponding to the department that logged it. I want to sum the number of offenses by county.
+
+```{python}
+crime_2025.columns.tolist()
+```
+
+```{python}
+#dropping columns I'm not interested in
+crime_2025_clean = crime_2025.drop(columns=["Reference Number", "Victim", "ORI", "Location", "Agency"])
+```
+
+```{python}
+#let's get total counts of the number of the offenses in each county in 2025
+county_crime_2025 = (crime_2025_clean
+    .groupby("County")
+    .size()
+    .reset_index(name="Total Offenses"))
+
+county_crime_2025 
+```
+
+
+# to do tomorrow
+
+- Join 3 datasets together (county_crime_2025, fit_le_counties, fit_social_counties)
+- the fit datasets need to be cleaned (empty columns and the column indicating county needs to actually be called 'county')
+- divide into violent crime / non violent crime ??
+- make a crime rate column = (number of crimes / population times) 100,000
