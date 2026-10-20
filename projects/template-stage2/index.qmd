@@ -1,0 +1,21 @@
+---
+title: "Template Project - Stage 2"
+author: 
+  - "Your name here"
+  - "If you had help, their name here"
+date: 2026-09-01
+description: "Copy This Template For your Project"
+categories: [template]  #  
+image: "images/thumbnail.jpeg"  # Required thumbnail for grid view - CHANGE THIS (this file does not exist )
+---
+
+## Project Overview
+
+Confirm that your project overview is accurate to your project!  Make whatever edits you need to so that your ~150-200 word description here is accurate. 
+
+### Components
+Link to the files you've made!
+
+- [Research Plan](research-plan.qmd) 
+- [Exploratory Data Analysis](stage2-data.qmd)
+- [Initial draft writing & reflection](stage2-writing.qmd)

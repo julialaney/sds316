@@ -1,6 +1,4 @@
 ---
-
----
 title: "Assignments"
 ---
 
@@ -84,21 +82,21 @@ When it's your turn to lead discussion, you will make these edits:
 
 During class:
 
-- At a certain point (likely different in each class), you'll come to the front of the room and spend **7-10 minutes** discussing the links you found and giving us an overview of the reading.
+-   At a certain point (likely different in each class), you'll come to the front of the room and spend **7-10 minutes** discussing the links you found and giving us an overview of the reading.
 
-- Then, you'll have **13-15** minutes to lead discussion with your peers. I won't participate unless called on. :)
+-   Then, you'll have **13-15** minutes to lead discussion with your peers. I won't participate unless called on. :)
 
 ### How its Graded
 
 These are graded credit/no credit for each of 7 components:
 
-- four complete slides (each credit/no credit)
+-   four complete slides (each credit/no credit)
 
-- PR open and building (no credit for an open PR that fails to build - so remember to *start early!*)
+-   PR open and building (no credit for an open PR that fails to build - so remember to *start early!*)
 
-- presented slides for 7-10 minutes
+-   presented slides for 7-10 minutes
 
-- facilitated discussion for 13-15 minutes
+-   facilitated discussion for 13-15 minutes
 
 [Sign up](https://docs.google.com/spreadsheets/d/1oqzW3GjvwdGwQpR57L7JWsS9Wvx-1Sehy_xs4PBAoBo/edit?gid=0#gid=0) and remember - you are responsible for switching with another student if you cannot make the date you signed up for.
 
@@ -107,17 +105,17 @@ These are graded credit/no credit for each of 7 components:
 The midterm and final checkins will be a mix between a conversation and an oral exam. You'll schedule a 20-minute block to come to my office where we will talk generally about how the class is going for you and how your project is going. I'll then ask you to respond to two questions, one about the reading, and one about the technical stack we're using. All questions will be shared at least a week before the exams.
 
 Midterm Conversations will happen between **October 14 and 19**. Note that we have no class on 10/21\
-Finals Conversations will happen in person *during the final exam period.*
+Finals Conversations will happen *in person during the final exam period.*
 
 ### How its graded
 
 These are graded credit/no credit along the following dimensions
 
-- scheduled an evaluation and arrived on time (within \~3 minutes of the start)
-- demonstrated an ability to talk honestly about the reading
-- demonstrated an ability to talk honestly about the project (this does *not* mean that your project needs to be going well. It only means that you are aware of how the project is going and are able to talk about it with a level of detail that demonstrates that you're engaged)
-- demonstrated an ablilty to talk through the technical answer with at least about 75% accuracy
-- demonstrated an ability to respond to the reading question citing evidence from the text
+-   scheduled an evaluation and arrived on time (within \~3 minutes of the start)
+-   demonstrated an ability to talk honestly about the reading
+-   demonstrated an ability to talk honestly about the project (this does *not* mean that your project needs to be going well. It only means that you are aware of how the project is going and are able to talk about it with a level of detail that demonstrates that you're engaged)
+-   demonstrated an ablilty to talk through the technical answer with at least about 75% accuracy
+-   demonstrated an ability to respond to the reading question citing evidence from the text
 
 ```{=html}
 ```
@@ -126,19 +124,19 @@ These are graded credit/no credit along the following dimensions
 
 I'll ask you a question about the **reading**, chosen from the following questions. I might also ask you to elaborate on your answer.
 
-- How has big data changed the way law enforcement officials do their jobs? Support with examples from the reading
+-   How has big data changed the way law enforcement officials do their jobs? Support with examples from the reading
 
-- Describe one of the technological systems that Brayne studies in the book. Where is it implemented? How is it received by officers and community members?
+-   Describe one of the technological systems that Brayne studies in the book. Where is it implemented? How is it received by officers and community members?
 
-- How do police respond to being subject to these surveillance systems? Support with examples from the reading.
+-   How do police respond to being subject to these surveillance systems? Support with examples from the reading.
 
 I'll ask you a **technical** question, chosen from the following questions. I might also ask you to elaborate on your answer:
 
-- What's the purpose of a virtual environment? How do they work and when are they useful and not useful?
+-   What's the purpose of a virtual environment? How do they work and when are they useful and not useful?
 
-- Walk me through the git lifecycle of adding a new feature to your project & getting it merged into the main class repo
+-   Walk me through the git lifecycle of adding a new feature to your project & getting it merged into the main class repo
 
-- Describe the steps (in Python) to load and clean a dataset in advance of analysis.
+-   Describe the steps (in Python) to load and clean a dataset in advance of analysis.
 
 ## Research Project
 
@@ -150,29 +148,29 @@ The research project will have many component parts and will be a project that w
 
 During the first stage of the project, we're practicing:
 
-- getting comfortable in the IDE, including customizing it as needed for our tasks (let the tools work for us!)
+-   getting comfortable in the IDE, including customizing it as needed for our tasks (let the tools work for us!)
 
-- getting comfortable with git and the Github pull request workflow (let the tools work for us!)
+-   getting comfortable with git and the Github pull request workflow (let the tools work for us!)
 
-- developing our research questions and building lists of resources and literature to review
+-   developing our research questions and building lists of resources and literature to review
 
-- forming research clusters to support our research
+-   forming research clusters to support our research
 
 #### Final Deliverable
 
 In a pull request:
 
-- you've made a project in the project folder, which is a copy of the `projects/template` folder with only the files you're working with at this stage. So, don't copy a bunch of meaningless template files into your project - delete all of the ones you don't need yet. You can add them later when the phase is appropriate.
+-   you've made a project in the project folder, which is a copy of the `projects/template` folder with only the files you're working with at this stage. So, don't copy a bunch of meaningless template files into your project - delete all of the ones you don't need yet. You can add them later when the phase is appropriate.
 
-- Within that folder, you've:
+-   Within that folder, you've:
 
-  - updated the yaml front matter of `index.qmd` to be accurate to your project
+    -   updated the yaml front matter of `index.qmd` to be accurate to your project
 
-  - added the yaml category for your research group (we will ID these in class)
+    -   added the yaml category for your research group (we will ID these in class)
 
-  - filled out all of the sections of `research-plan.qmd`
+    -   filled out all of the sections of `research-plan.qmd`
 
-- In the `datasets.qmd` file, you've added **five** datasets that you've found that could be useful to your inquiry. You can create a new subheading if it's appropriate, or spread the links across pre-existing sections
+-   In the `datasets.qmd` file, you've added **five** datasets that you've found that could be useful to your inquiry. You can create a new subheading if it's appropriate, or spread the links across pre-existing sections
 
 As a research cluster, you will write three paragraphs (about 350 words) about the connections you see between your projects, and how you are planning to use the cluster to support your individual research projects. Name this file following the pattern `g.cluster-name.qmd` and put it directly in the main `projects` folder (it will be a sibling to your individual project folders). If your project cluster was about Women In Prison, you might name your file `g.women-in-prison.qmd` Only *one* of your cluster members will add this to their Stage 1 Pull Request, so talk about it amongst yourselves to figure out who will do this.
 
@@ -182,21 +180,48 @@ As a research cluster, you will write three paragraphs (about 350 words) about t
 
 During the second stage, we're actively working on data analysis and making sure that all work is building successfully. This includes:
 
-- writing python code to analyze the data
+-   writing python code to analyze the data
 
-- drafting preliminary writing about the technical/quantitative steps you're taking
+-   drafting preliminary writing about the technical/quantitative steps you're taking
 
-- discussing your results with your research cluster
+-   discussing your results with your research cluster
 
-- exploring data visualizations
+-   exploring data visualizations
 
-#### Key Deliverables
+#### Final Deliverable
 
-*More details about these deliverables and what you'll turn in will appear closer to the due date!*
+::: callout-note
+## You will lose 10% per day this is late, beginning at 12:01 on Thursday morning (aka late Wednesday night)
+:::
 
-- Project and Report scaffold
+By 11:59pm EST on **Wednesday October 21**, you will need to have an open PR that:
 
-- Updated (if necessary) research questions / investigation description
+1.  *builds*. This means that if you run `quarto preview`, everything works okay
+2.  *has no merge conflicts*. This means that when I go to merge it in, it's not in conflict with any code from main. This should be trivial since you're working in your own folder now
+3.  *contains the necessary content (below)*. Is everything there? Are you *sure*? Double check one more time so that we don't go back and forth (and you don't lose points).
+
+**Your PR should contain:**
+
+-   An up-to-date `research-plan.qmd.` If your questions haven't changed, you probably don't need to edit this
+
+-   An `index.qmd` file that links to ALL of your other pages. See the code in `projects/template-stage2/index.qmd` for examples. Think about browsing your classmates' projects via the browser - you need links to know what's there.
+
+-   One or two files (up to you) with **8** questions asked and answered. These questions should contain some text, and some code – that is, I am not interested in the *answers* to the questions, but in your thinking and the code you're writing.
+
+    -   Some folks are doing work in files called `stage2.qmd` and `stage2.2.qmd`, and some are putting them all into `stage2.qmd`. Either is fine
+
+-   A completed `stage2-writing.qmd` file. Follow the instructions in the file `projects/template-stage2/stage2-writing.qmd`!
+
+**Your PR should NOT contain:**
+
+-   ~~*any* of your commits from Stage 1 – only new commits and new/updated files~~
+
+    -   ~~The easiest way to achieve this is to make sure that you're on a different branch from your stage 1 work~~
+    -   **Don't worry about this!!!**
+
+-   *any placeholder text.* Look at your project on the [project listing page](https://nikkostevens.com/sds316/projects/). Does it look complete? Do the images load? Are the tags correct? Do ANY of your files have any left over placeholder content? (check!!! there were a lot on the `research-plan.qmd` files that I saw)
+
+    1.  NOTE: You can view previews locally `quarto preview` - just visit `/projects` at your localhost's URL and see how your project looks
 
 ### Stage 3 - Building and Deploying
 
@@ -204,39 +229,39 @@ During the second stage, we're actively working on data analysis and making sure
 
 During the third stage of the project, we're practicing:
 
-- Foreclosing possibilities (aka, committing to a direction even if you're uncertain about the results)
+-   Foreclosing possibilities (aka, committing to a direction even if you're uncertain about the results)
 
-- Making decisions about the best ways to visualize information
+-   Making decisions about the best ways to visualize information
 
-- Telling stories with data / questioning what data may be telling us
+-   Telling stories with data / questioning what data may be telling us
 
 #### Key Deliverables
 
 *More details about these deliverables and what you'll turn in will appear closer to the due date!*
 
-- final-first-draft report
+-   final-first-draft report
 
-- draft abstract
+-   draft abstract
 
 ### Stage 4 - Reflection + Refinement
 
 **Due December 15, 2026**
 
-During the first stage of the project, we're practicing:
+During the final stage of the project, we're practicing:
 
-- revising key findings
+-   revising key findings
 
-- viewing and critiquing others' work
+-   viewing and critiquing others' work
 
-- reflecting on the process and what we've learned
+-   reflecting on the process and what we've learned
 
 #### Key Deliverables
 
-- final report
+-   final report
 
-- Updated `g.cluster-name.qmd` file to list all of the projects from the group.
+-   Updated `g.cluster-name.qmd` file to list all of the projects from the group.
 
-- self-reflection (private)
+-   self-reflection (private)
 
 ## ⚠️ Submitting Work
 
@@ -244,14 +269,14 @@ With a few exceptions, 100% of your class work will be performed in a fork of [t
 
 In order for your work to be complete and accepted,
 
-- you will do all of your work in a descriptively and appropriately named branch that includes your name. For example, if I were going to make a branch to add to the week's discussion slides, I might name it `stevens-w2-slides.` A branch for my first project deliverable might be called `nikko-project-deliverable`. I'm not setting hard-and-fast rules about what you should call the branch, only that you keep in mind that there are many people making many branches and there has to be a way to identify what a branch is for based ONLY on the name of it.
+-   you will do all of your work in a descriptively and appropriately named branch that includes your name. For example, if I were going to make a branch to add to the week's discussion slides, I might name it `stevens-w2-slides.` A branch for my first project deliverable might be called `nikko-project-deliverable`. I'm not setting hard-and-fast rules about what you should call the branch, only that you keep in mind that there are many people making many branches and there has to be a way to identify what a branch is for based ONLY on the name of it.
 
-- you will open a pull request (PR) with *just* the changes you're trying to merge in \<💡[how to open a PR](https://docs.github.com/es/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)\>
+-   you will open a pull request (PR) with *just* the changes you're trying to merge in \<💡[how to open a PR](https://docs.github.com/es/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/creating-a-pull-request-from-a-fork)\>
 
-- that PR will build successfully
+-   that PR will build successfully
 
-- you will make any necessary changes requested by your peers (when a review is required) and to ensure the build succeeds
+-   you will make any necessary changes requested by your peers (when a review is required) and to ensure the build succeeds
 
-- you update the PR with those changes
+-   you update the PR with those changes
 
-- I will then merge the PR into the `main` branch and delete your branch and the cycle will begin again!
+-   I will then merge the PR into the `main` branch and delete your branch and the cycle will begin again!

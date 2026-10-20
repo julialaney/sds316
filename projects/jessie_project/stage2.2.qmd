@@ -1,0 +1,190 @@
+---
+title: Initial Questions
+author: Jessie Wang
+execute:
+  code-fold: true
+---
+
+# Stage 2.2: More Explorations of the Dataset.
+
+
+## About
+
+### Dataset
+The dataset is [Florida Cities](https://data.census.gov/table/DECENNIALDHC2020.P3?q=P3&g=040XX00US12$1600000&d=DEC+Demographic+and+Housing+Characteristics).  It is stored in the `data` folder. I also have another dataset to combine with it. Last time, we saw that Texas and Florida have the most amount of prisons, with Florida with the most federal prisons. So that's why I chose to get demographics for Florida.
+
+```{python}
+import numpy as np
+import pandas as pd
+from pyprojroot import here # this helps us navigate tricky path stuff between local runs and quarto builds
+
+# Load the data using here() with the path from the project root
+file_path = here("projects/jessie_project/data/allprisons.csv")
+df = pd.read_csv(file_path, sep=',')
+
+
+# new dataset
+file_path2 = here("projects/jessie_project/data/florida_cities.csv")
+df1 = pd.read_csv(file_path2, sep=',') 
+
+df1.head(10)
+
+```
+
+### Wrangling
+
+Let's wrangle the new data to be useful for us.
+```{python}
+
+df_new = df1.transpose()
+
+
+
+df_new.columns = df_new.iloc[0]
+df_new = df_new[1:]
+df_new.reset_index(level=0, inplace=True)
+
+df_new.rename(columns = {"index": "city"}, 
+          inplace = True)
+
+df_new.head(10)
+```
+
+
+### Research Question
+My first research question is _"What are the demographics of each location?"_ Which has a very wide scope. And so, I am focusing on Florida.
+
+Let's adjust the old data.
+```{python}
+rows = df[df["stateshortname"] != "FL"].index
+df.drop(rows, inplace=True)
+df_new.head(10)
+
+
+```
+
+### What are the demographics of Florida? 
+
+Let's focus on Black people for now, as they are the most affected by the prison system.
+
+```{python}
+df_new.iloc[:, 3] = df_new.iloc[:, 3].str.replace(',', '')
+
+for i in  range(len(df_new.iloc[:, 3])):
+  if type(df_new.iloc[i, 3]) == float:
+    continue
+  else:
+    df_new.iloc[i, 3] = int(df_new.iloc[i, 3])
+
+total_b = np.nansum(df_new.iloc[:, 3])
+
+df_new.iloc[:, 1] = df_new.iloc[:, 1].str.replace(',', '')
+
+for i in  range(len(df_new.iloc[:, 1])):
+  if type(df_new.iloc[i, 1]) == float:
+    continue
+  else:
+    df_new.iloc[i, 1] = int(df_new.iloc[i, 1])
+
+total_florida = np.nansum(df_new.iloc[:, 1])
+
+total_b/total_florida
+
+```
+
+The population is 16.78% black.
+
+### What Cities in Florida have prisons?
+```{python}
+
+df["address"].head(10)
+```
+
+
+                     3625 FCI ROAD, MARIANNA, FL 32446
+              15801 S.W. 137TH AVENUE, MIAMI, FL 33177
+                     33 NE 4TH STREET, MIAMI, FL 33132
+                     110 RABY AVE, PENSACOLA, FL 32509
+         501 CAPITAL CIRCLE, NE, TALLAHASSEE, FL 32301
+                 5914 Jeff Ates Road, Milton, FL 32583
+     3900 North Powerline Road, Deerfield Beach, FL...
+       1282 East State Road 78, Moore Haven, FL 33471
+             600 US Highway 27 S, South Bay, FL 33493
+             4955 Technology Way Boca Raton FL, 33431
+
+
+lets examine miami! 
+
+### Miami Demographics: Black people - percentage
+```{python}
+
+
+l_city = ["Marianna", "Miami", "Pensacola", "Tallahassee", "Milton", "Deerfield Beach", "Moor Haven", "South Bay", "Boca Raton"]
+
+miami = df_new[df_new['city'].str.contains("Miami")]
+
+
+for i in  range(len(miami.iloc[:, 3])):
+  if type(miami.iloc[i, 3]) == float:
+    continue
+  else:
+    miami.iloc[i, 3] = int(miami.iloc[i, 3])
+
+total_b_m = np.nansum(miami.iloc[:, 3])
+
+```
+
+```{python}
+
+for i in  range(len(miami.iloc[:, 1])):
+  if type(miami.iloc[i, 1]) == float:
+    continue
+  else:
+    miami.iloc[i, 1] = int(miami.iloc[i, 1])
+
+total_miami = np.nansum(miami.iloc[:, 1])
+
+
+percent_b_m = total_b_m/total_miami * 100
+percent_b_m
+
+```
+
+Within all the cities with Miami in the name, the population is 21.94% soley black. What about another city?
+
+### South Bay
+```{python}
+
+s_bay = df_new[df_new['city'].str.contains("South Bay")]
+
+
+for i in  range(len(s_bay.iloc[:, 3])):
+  if type(s_bay.iloc[i, 3]) == float:
+    continue
+  else:
+    s_bay.iloc[i, 3] = int(s_bay.iloc[i, 3])
+
+total_b_b = np.nansum(s_bay.iloc[:, 3])
+total_b_b
+```
+
+```{python}
+
+for i in  range(len(s_bay.iloc[:, 1])):
+  if type(s_bay.iloc[i, 1]) == float:
+    continue
+  else:
+    s_bay.iloc[i, 1] = int(s_bay.iloc[i, 1])
+
+total_s_bay = np.nansum(s_bay.iloc[:, 1])
+
+
+percent_b_b = total_b_b/total_s_bay * 100
+percent_b_b
+
+```
+
+Within all the cities with Miami in the name, the population is 65% soley black.
+
+### Next
+Next, I want to look at some more cities and possibly graph them. Need to look into that.

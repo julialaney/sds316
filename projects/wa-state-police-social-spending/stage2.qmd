@@ -14,11 +14,13 @@ Initially, I want to explore the dataset containing Washington state fiscal info
 ```{python}
 #python cell = CMD Shift I
 
+
 import pandas as pd
 from pyprojroot import here
 
 #importing dataset containing fiscal info by entity
-df = pd.read_csv('OSTAllEntity.csv')
+file_path = here('projects/wa-state-police-social-spending/_data/OSTAllEntity.csv')
+df = pd.read_csv(file_path)
 ```
 
 ```{python}
@@ -135,11 +137,11 @@ print(pierce_cat_totals)
 
 ```{python}
 #per capita funding
-pierce_pc = pierce_cat_totals["Criminal Legal System"] / 946288
-king_pc = king_cat_totals["Criminal Legal System"] / 2344939
+# pierce_pc = pierce_cat_totals["Criminal Legal System"] / 946288
+# king_pc = king_cat_totals["Criminal Legal System"] / 2344939
 
-print("Pierce County:", pierce_pc)
-print("King County:", king_pc)
+# print("Pierce County:", pierce_pc)
+# print("King County:", king_pc)
 ```
 
 In 2025, Pierce County received about $12.01 per capita in distributions related to the criminal legal system. King County received about $11.12 per capita in distributions related to the criminal legal system. It's important to note that this is just state funding and not the counties' own criminal legal system spending. I'm curious - is this difference an effect of each counties' crime rates?

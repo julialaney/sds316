@@ -11,13 +11,16 @@ website:
         text: Syllabus
       - text: Assignments
         href: assignments.qmd
-        icon: file-earmark
+        icon: list-task
       - text: Lectures
         href: lectures.qmd
-        icon: file-earmark
+        icon: chat
       - text: Schedule
         href: schedule.qmd
         icon: calendar-minus
+      - text: Projects
+        href: projects/index.qmd
+        icon: rocket-takeoff
       # Dropdown Menu for Resources
       - text: "Resources"
         icon: tools
@@ -50,3 +53,4 @@ format:
 
 execute:
   freeze: auto
+  cache: true

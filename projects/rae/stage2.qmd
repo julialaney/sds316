@@ -1,0 +1,418 @@
+---
+title: Initial Questions
+author: Nikko Stevens
+execute:
+  code-fold: true
+---
+
+# Stage 2.1: Initial Explorations of the Dataset.
+::: callout-note
+This example captures my own real, work-in-progress thinking about this dataset.  I haven't gone back and made any revisions. I am writing this page at the same time as I'm asking these questions. What is in this dataset? What kinds of questions might I want to ask as I drill down?
+:::
+
+## About
+
+### Dataset
+The dataset is [Executions in the United States, 1608 - 2002: The Espy File](https://www.icpsr.umich.edu/web/NACJD/studies/8451).  It is stored in the `_data` folder, and the entire set of downloaded files from ICPSR is in the folder `ICPSR-08451`.  Below, you'll see that I'm using inscrutable column names.  They are labled in the file `projects/demo/_data/ICPSR_08451/DS0001/08451-0001-Codebook.pdf`
+
+### Research Question
+My initial research question is pretty vague -- _"Are there trends in the crimes for which people have been executed in the United States?"_ And if I'm being honest, this isn't the right question for someone with both my disciplinary background and my technical skillset/interests.  I'm more interested in how this dataset is shaped, and what I might learn from the kinds of values I'm seeing in it.  (This is a more [inductive approach](https://socialsci.libretexts.org/Bookshelves/Social_Work_and_Human_Services/Scientific_Inquiry_in_Social_Work_(DeCarlo)/06:_Linking_Methods_with_Theory/6.03:_Inductive_and_deductive_reasoning).)
+
+```{python}
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+```
+
+```{python}
+
+df_dist = pd.read_excel('sds316/projects/rae/data/Texas_district_reallocation_results.xlsx')
+df_block = pd.read_csv('sds316/projects/rae/data/Texas_block_returning_data.csv')
+
+df_dist.head()
+```
+
+```{python}
+#this is the same results as above but broken down by block group 
+df_block.head()
+
+df_dist.columns
+
+```
+
+## First question: Change in population
+I notice there's a column in the districts dataset that examines the change in total population, and the change disaggregated by racial group. What's the average change in the House Districts' total populations?
+
+```{python}
+# import pandas as pd
+# from pyprojroot import here # this helps us navigate tricky path stuff between local runs and quarto builds
+
+# # Load the data using here() with the path from the project root
+# file_path = here("projects/demo/_data/ICPSR_08451/DS0001/08451-0001-Data.tsv")
+
+#on average districts change by 1,211 people BUT this tells me nothing about whether we've lost or gained 
+df_dist['changepop'].abs().aggregate('mean')
+
+#did more districts lose or gain population? GAIN
+np.sign(df_dist['changepop']).sum()
+
+```
+
+I know that on average districts changed by 1211, and 89 more House Districts gained total population than lost it.  
+
+## Second question: Change in population by demographic
+
+```{python}
+
+# Let's assign that subset to it's own data frame so that we can work just with it
+
+it_list = ['changew','changeb', 'changel', 'changeo']
+
+for item in it_list: 
+  print(f"======={item}=======")
+  print("Mean", df_dist[item].mean())
+  print("Mean Abs", df_dist[item].abs().mean())
+  print("Gain or Lose?", np.sign(df_dist[item].sum()))
+
+```
+
+=======changew=======
+Mean 3.200000010110671e-06
+Mean Abs 384.79816626666667
+Gain or Lose? 1.0
+=======changeb=======
+Mean 0.006653119999997822
+Mean Abs 433.88822992
+Gain or Lose? 1.0
+=======changel=======
+Mean 0.006634460000010828
+Mean Abs 426.60481500666674
+Gain or Lose? 1.0
+=======changeo=======
+Mean 7.726666666864427e-06
+Mean Abs 7.73007488
+Gain or Lose? 1.0
+
+Okay it seems like across all four racial demographics just barely more districts gained population than lost it. The mean changes in the white, black, latino, and "other" population are 384.80, 433.89, 426.60, 7.773, respectively. 
+
+## Third question: Now I'm curious how much each districts total population is under or over the actual population baseline for a single congressional district in TX
+
+```{python}
+ideal = 194303
+
+df_dist['dif_from_ideal'] = df_dist['adjtotal'] - ideal
+df_dist.sort_values('dif_from_ideal', ascending = False)
+
+#if negative then ideal is greater than the adjusted, aka its too small compared to ideal once adjusted 
+#if greater then ideal is greater than the adjusted, aka its too large compared to ideal once adjusted 
+```
+
+House District 95, once adjusted has 10,970.5 more individuals than the ideal district, meaning that many people have been removed from the district's population via the prison pipeline. On the other hand, district 24 has 14,824.3 fewer people than the ideal, meaning that in actuality, its population is inflated by inmates. All other districts have differences from ideal that are between 10,970 and 14,824.
+
+### Fourth question: Geographic patterns? 
+
+Since gerrymandering is inherently geographic, I'm curious whether there are geographic patterns to the districts that gain vs. lose population after adjustment. This should be the same thing as finding whether the adjusted districts are too big (i.e., population was gained) or too small (i.e., population was lost). 
+
+First I need to get the Texas house district shape files to plot.^[Source: https://gis-txdot.opendata.arcgis.com/datasets/0627be7aa6f0440081bd750734761a63_0/about] 
+
+```{python}
+#importing the 2022 HD shapes (this should be pre- recent mid-decade redistricting)
+import geopandas as gpd
+district_shape = gpd.read_file('sds316/projects/rae/data/TX-2022-State-House-district-shapes-no-landmarks.geojson')
+```
+
+```{python}
+#switching the coordinate system for plotting
+district_shape.crs
+
+district_shape = district_shape.to_crs('EPSG:3081')
+district_shape.crs
+```
+
+Why do i get two different results for the plots below? Probably because toobig and toosmall variables are based on the legal definition of being too big or small. 
+```{python}
+df_dist_wshape = pd.concat([district_shape[['geometry']],df_dist], axis = 1) 
+
+
+df_dist_wshape['color'] = df_dist_wshape['dif_from_ideal'].apply(lambda x: 'red' if x > 0.0 else 'green' )
+
+df_dist_wshape.plot(color = df_dist_wshape['color'])
+```
+
+```{python}
+color_map = {-1.0: 'blue', 1.0: 'red', 0.0: 'green'}
+color = df_dist_wshape['toobig'].map(color_map)
+
+df_dist_wshape.plot(color = color)
+```
+
+```{python}
+df_dist_wshape['toobig'].value_counts()
+```
+
+Okay, so I assume that some districts can be too big, too small, or niether, but because toobig and toosmall are binary indicators, I need to make a column that accounts for all three options. 
+```{python}
+
+df_dist_wshape['size'] = np.where(df_dist_wshape['toobig'] == 1.0, 'big',
+np.where(df_dist_wshape['toosmall'] == 1.0, 'small', 'neither'))
+```
+
+```{python}
+df_dist_wshape.head()
+
+color_map = {'neither': 'lightgrey', 'big': 'red', 'small': 'orange'}
+color = df_dist_wshape['size'].map(color_map)
+
+df_dist_wshape.plot(color = color)
+
+```
+
+Great, it seems like all of the districts that are too big once people are reallocated are districts near/encompassing cities, while the ones that shrink are in more rural. This makes sense given what we know. 
+
+## Fifth question: Racial Demographics
+Now lets look at the demographic breakdowns of these counties; specifically the percent of the population that is black.   
+
+```{python}
+tx_dist_info = pd.read_csv('sds316/projects/rae/data/district-data.csv')
+```
+
+```{python}
+rel_districts = list(df_dist_wshape[df_dist_wshape['size'] != 'neither']['district_h'])
+
+#texas demo info is by district so should map perfectly!
+# tx_dist_info['Label'].value_counts()
+# df_dist_wshape['district_h'].value_counts()
+
+tx_dist_info = tx_dist_info.drop(0, axis = 0 ).reset_index()
+```
+
+```{python}
+df_150 = pd.concat([tx_dist_info, df_dist_wshape], axis = 1)
+df_150.head()
+```
+
+```{python}
+#lets check that the T_20 CENS total is the same as/close to as the pre-reallocation totals
+print(df_150.columns)
+df_150[['T_20_CENS_Total', 'total']]
+df_150['CENS_total_diff'] = df_150['T_20_CENS_Total']- df_150['total']
+```
+
+```{python}
+
+df_150['CENS_total_diff_pct'] = df_150['CENS_total_diff']/df_150['total']
+
+df_150['CENS_total_diff_pct'].sort_values()
+```
+
+There is no difference between the 2020 Census totals and the totals in the adjusted data! 
+
+```{python}
+print(tx_dist_info.index)
+print(df_dist_wshape.index)
+df_150.head()
+
+fig, ax = plt.subplots()
+
+df_150 = df_150.set_geometry('geometry')
+df_150 = df_150.to_crs('EPSG: 3081')
+
+df_150['pct_black'] = df_150['T_20_CENS_Black'] / df_150['T_20_CENS_Total']
+
+df_150.plot(ax = ax, color = 'lightgrey')
+
+df_150[df_150['district_h'].isin(rel_districts)].plot(ax = ax, column = 'pct_black', legend = True)
+
+df_150[df_150['toosmall'] == 1.0].plot(ax = ax, column = 'size', alpha = 0.5, hatch = '||', hatchcolor = 'white')
+
+plt.title('Pct of Non-adjusted District - Black')
+
+```
+
+Seems like there's not an immediate racial correlation here. Some of the districts that gain people after reallocation have a high percent of black individuals, others do not. 
+
+## Sixth question: Prison locations 
+
+Lets plot the 5 largest state correctional facilities . I think I know which districts in which they might fall...
+
+```{python}
+# #five largest state run prisons in texas, 3 seem to be in the same place
+# adresses = pd.Series(['2661 FM 2054, Tennessee Colony, TX 75884', '2101 FM 369, Iowa Park, TX 76367', '9601 Spur 591, Amarillo, TX 79107', '1391 FM 3328, Tennessee Colony, TX 75880', '2664 FM 2054, Tennessee Colony, TX 75886'])
+
+# prisons_gdf  = gpd.tools.geocode(adresses)
+# #, verify = False) this doesn't work :(
+# prisons_gdf.head()
+
+prison_gdf = gpd.read_file('sds316/projects/rae/data/allprisons.csv')
+prison_gdf = prison_gdf[prison_gdf['stateshortname'] == 'TX']
+prisons_1 = prison_gdf[['name', 'coordinates']]
+prisons_2 = prison_gdf[['PrisonName', 'geometry']]
+prisons_1.rename(columns = {'name': 'PrisonName', 'coordinates': 'geometry'}, inplace = True)
+prisons_merged = pd.concat([prisons_1, prisons_2], axis = 0).reset_index()
+prisons_merged = prisons_merged[prisons_merged['geometry'].str.contains(')', regex = False)]
+prisons_merged['geometry'] = shapely.from_wkt(prisons_merged['geometry'])
+
+prisons_merged = prisons_merged.set_geometry('geometry', crs = 4326)
+prisons_merged = prisons_merged.to_crs('EPSG:3081')
+
+```
+
+```{python}
+import shapely
+
+df_150 = df_150.set_geometry('geometry', crs = 3081)
+
+fig, axis = plt.subplots()
+
+df_150.plot(ax = axis, color = 'lightgrey')
+
+df_150[df_150['district_h'].isin(rel_districts)].plot(ax = axis, column = 'pct_black', legend = True)
+
+df_150[df_150['toosmall'] == 1.0].plot(ax = axis, column = 'size', alpha = 0.5, hatch = '||', hatchcolor = 'white')
+
+prisons_merged.plot(ax = axis, color = 'red', markersize = 3)
+
+```
+
+Hmm, it seems like prisons also exist in areas that become "too big" after reallocation. However, that may be due to the existance of lower security or municipal prisons in the area. 
+
+Not sure how to get rid of the outlier point!
+
+```{python}
+shapely.from_wkt(prisons_merged['geometry'].iloc[0])
+```
+
+# Seventh question: The plots above used the pct_black with the unadjusted totals/Census counts. Do the results change when we ue the adjusted data? 
+
+```{python}
+fig, ax2 = plt.subplots()
+
+df_150['adj_pct_black'] = df_150['adjblack'] / df_150['adjtotal']
+
+df_150.plot(ax = ax2, color = 'lightgrey')
+
+df_150[df_150['district_h'].isin(rel_districts)].plot(ax = ax2, column = 'adj_pct_black', legend = True)
+
+df_150[df_150['toosmall'] == 1.0].plot(ax = ax2, column = 'size', alpha = 0.5, hatch = '||', hatchcolor = 'white')
+
+plt.title('Pct of Adjusted District - Black', ax = ax2)
+```
+
+It doesn't look like anything changed. 
+
+# Eighth question: What about partisanship? Are there partisan patterns to the way in which people are distributed? 
+
+```{python}
+df_elect = pd.read_csv('sds316/projects/rae/data/district-election-data.csv')[['E_16-20_COMP_Total', 'E_16-20_COMP_Dem', 'E_16-20_COMP_Rep']]
+
+df_elect = df_elect.drop(0, axis = 0).reset_index()
+```
+
+```{python}
+df_elect.head()
+df_elect_shape = pd.concat([df_elect, df_dist_wshape], axis = 1)
+
+df_elect_shape.head()
+
+
+fig, ax3 = plt.subplots()
+
+df_150['Dem_vote_share'] = df_150['E_16-20_COMP_Dem'] / df_150['E_16-20_COMP_Total']
+
+df_150.plot(ax = ax3, color = 'lightgrey')
+
+df_150[df_150['district_h'].isin(rel_districts)].plot(ax = ax3, column = 'Dem_vote_share', legend = True)
+
+df_150[df_150['toosmall'] == 1.0].plot(ax = ax3, column = 'size', alpha = 0.5, hatch = '||', hatchcolor = 'white')
+
+plt.title('Pct of Non-adjusted District - Dem', ax = ax3)
+```
+
+There are much clearer partisan pattersn to this. Most of the counties that are "too big" after reallocation voted Democratic, so this confirms that theres are partisan consquences to prison gerrymandering in Texas, as the literature suggests. 
+
+# 9th question: What's the distribution of legal maps after reallocation? 
+
+Below I'm attempting to run the Flip Chain MCMC method using Gerrychain. This seems to work so next, let me try to do this with Texas 2020 VTD data. 
+
+```{python}
+from gerrychain import  (
+    GeographicPartition,
+    Partition,
+    Graph,
+    MarkovChain,
+    updaters,
+    constraints,
+    accept,
+    Election,
+)
+from gerrychain.proposals import ReCom
+from gerrychain.constraints import contiguous
+from gerrychain.examples import gerrymandria
+from functools import partial
+import pandas
+from gerrychain.accept import always_accept
+from gerrychain.constraints import single_flip_contiguous
+from gerrychain.proposals import propose_random_flip
+from gerrychain.constraints import contiguous
+
+pa_chain = MarkovChain(
+    total_steps=40,
+    rng=2024,
+)
+```
+
+
+```{python}
+graph = Graph.from_json("sds316/projects/rae/data/PA_VTDs.json")
+
+my_updaters = {"population": updaters.Tally("TOT_POP", alias="population")}
+
+pa_chain.initial_partition = GeographicPartition(
+    graph, assignment="2011_PLA_1", updaters=my_updaters
+)
+elections_updaters = {
+    "SEN10": Election("SEN10", {"Democratic": "SEN10D", "Republican": "SEN10R"}),
+    "SEN12": Election("SEN12", {"Democratic": "USS12D", "Republican": "USS12R"}),
+    "SEN16": Election("SEN16", {"Democratic": "T16SEND", "Republican": "T16SENR"}),
+    "PRES12": Election("PRES12", {"Democratic": "PRES12D", "Republican": "PRES12R"}),
+    "PRES16": Election("PRES16", {"Democratic": "T16PRESD", "Republican": "T16PRESR"}),
+}
+
+pa_chain.add_updaters(elections_updaters)
+
+ideal_population = sum(pa_chain.initial_partition["population"].values()) / len(
+    pa_chain.initial_partition
+)
+
+# pa_chain.proposal_fn = build_recom_proposal_fn(
+#     pop_col="TOT_POP",
+#     pop_target=ideal_population,
+#     epsilon=0.02,
+# )
+pa_chain.proposal_fn = propose_random_flip
+pa_chain.add_constraint(contiguous)
+pa_chain.acceptance_fn = always_accept
+```
+
+```{python}
+def cut_edges_length(partition):
+    return len(partition["cut_edges"])
+
+pa_chain.add_constraint(
+    constraints.UpperBound(cut_edges_length, 2 * len(pa_chain.initial_partition["cut_edges"]))
+)
+```
+
+
+```{python}
+import tqdm
+data = pandas.DataFrame(
+    sorted(partition["SEN12"].percents("Democratic"))
+    for partition in pa_chain.with_progress_bar()
+)
+
+ax = data.boxplot(positions=range(len(data.columns)))
+plt.plot(data.iloc[0], "ro")
+
+plt.show()
+```

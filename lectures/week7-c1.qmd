@@ -1,0 +1,69 @@
+---
+title: "Coding Inequality, Algorithms, Legality, and the end!"
+subtitle: "Predict and Surveil, Chapters 6-8"
+description: "Lecture for Week7-C1"
+author: "Hayden Steinmann"
+topics:
+- "Coding Inequality"
+- "Algorithms"
+- "Legality"
+categories: ["seminar"]
+format:
+  revealjs:
+    theme: [serif, seminar.scss]       
+    slide-number: true
+    transition: slide
+    controls: false
+---
+
+## Today's Agenda
+
+- Stage 2 is DUE Wednesday
+- Hayden's our discussion leader!
+-   
+
+
+<!--https://quarto.org/docs/presentations/revealjs/ -->
+
+# Discussion
+
+
+## Related Events
+- [Abolition Means No Digital Prisons](https://theappeal.org/abolition-means-no-digital-prisons/) by James Kilgore  
+*Introduces e-incarceration and how this form of data collection reshapes mass incarceration and expands the data that institutions have access to
+
+
+- [Flock Safety tries to curb police abuse of its surveillance cameras after scandals](https://www.theguardian.com/technology/2026/aug/13/flock-safety-police-abuse-surveillance-cameras) - Aug 13, 2026 _The Gaurdian_  
+*Discusses the backlash that certain surveillance companies are getting and the compromises they’re trying to make. ”I don’t think there’s such a thing as mass surveillance, but with guardrails.” Expanding access to surveillance data raises questions about discretion and institutional accountability.
+
+
+## Reading
+Chapter 6:
+
+- Feedback loops, an increase in policing produces more recorded incidents → which tends to justify further surveillance in certain communities → and loop continues
+- Self-fulfilling statistical prophecies, quantified practices often exacerbate inequalities in stop patterns, creating arrest statistics needed to justify stereotypes (confirmation bias)
+- Data codifies a secondary surveillance network and widens the criminal justice dragnet unequally
+- System avoidance, people may avoid becoming visible to the criminal legal system by avoiding public services, often disproportionately affecting marginalized communities 
+
+## Continued...
+Chapter 7 + 8:
+
+- Fourth amendment, big data complicates these protections as police can develop suspicion in ways that challenge traditional ideas (parallel construction)
+- Legal protections lag behind technology 
+- Community engagement and accountability, big data is a social and institutional issue not just a technological one, so transparency, oversight, and public participation are important in evaluating surveillance systems
+- Six provocations: Slow down, police the police, identify and remediate errors, direct nonpunitive interventions, clear cases and solve cold ones, redefine successful policing
+
+
+## Main Points
+- “If you have nothing to hide, you have nothing to fear… however, the legitimacy of using a series of data points to reconstruct an individual’s intentions and behaviors – whether incriminating or exculpatory – and using that data to predict future behaviors, relies on the fallibility of both the state and the state actors who enter data.” (pg. 112) INTENTION
+- "Existing research underestimates the effects of involvement in the criminal justice system when that involvement is tied to impenetrable, interwoven, and proprietary data systems. We literally don’t know where all the data goes.” (pg. 141) SIZE
+
+
+## Questions!
+These two questions are directly from the book but I think they’re very good ones!!
+
+- Are the police the primary lever we should use in violence reduction? If not, what other types of targeted service interventions could we use prediction to direct?
+
+Now that we’ve finished the book…
+
+- What should accountability look like? Who should have the power to oversee these systems and what should meaningful oversight include?

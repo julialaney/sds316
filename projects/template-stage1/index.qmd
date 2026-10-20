@@ -1,0 +1,14 @@
+---
+title: "Template Project"
+author: 
+  - "Your name here"
+  - "If you had help, their name here"
+date: 2026-09-01
+description: "Copy This Template For your Project"
+categories: [Investigation, Capture, Trial, Detention, Supervision, Release, Re-entry ]  #  These are some of the categories you might use
+image: "images/thumbnail.jpeg"  # Required thumbnail for grid view - CHANGE THIS (this file does not exist )
+---
+
+## Project Overview
+
+Write about 100 - 150 words describing your project. This description will change over the semester, so each time you make a deliverable, you might need to update it.  Each time, do your best to be accurate to the focus of the project _as it is that that moment_

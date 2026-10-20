@@ -8,10 +8,12 @@ date: 2026-10-14
 
 ```{python}
 import pandas as pd
+from pyprojroot import here
+file_police = here("projects/wa-state-police-social-spending/_data/fit_publicsafety.csv")
+fit_police = pd.read_csv(file_police, skiprows=6)
 
-fit_police = pd.read_csv("projects/wa-state-police-social-spending/fit_publicsafety.csv", skiprows=6)
-
-fit_social = pd.read_csv("projects/wa-state-police-social-spending/fit_socialservices.csv", skiprows=6)
+file_social = here("projects/wa-state-police-social-spending/_data/fit_socialservices.csv")
+fit_social = pd.read_csv(file_social, skiprows=6)
 
 fit_social.head(n=3)
 #fit_police.head(n=3)
@@ -64,7 +66,8 @@ The three counties with the smallest public safety spending are: Garfield, Colum
 Public safety includes subcategories like disaster services and fire & emergency medical activities. I downloaded a more specific dataset that looks just at "law enforcement activities" within the public safety category. “Law enforcement activities” includes police operations, administration, traffic policing, training, crime prevention, property and evidence room, and facillities.
 
 ```{python}
-fit_lawenforcement = pd.read_csv("projects/wa-state-police-social-spending/fit_lawenforcementactivities.csv", skiprows=6)
+file_lawenf = here("projects/wa-state-police-social-spending/_data/fit_lawenforcementactivities.csv")
+fit_lawenforcement = pd.read_csv(file_lawenf, skiprows=6)
 ```
 
 ```{python}

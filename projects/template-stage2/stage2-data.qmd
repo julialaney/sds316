@@ -1,0 +1,8 @@
+---
+title: Stage 2 Data
+author: Nikko Stevens
+execute:
+  code-fold: true
+---
+
+In this file you should have 8 questions (or 4 over 2 files, as you wish) with running code and explanatory text with each. See the demo project for an example of this work.

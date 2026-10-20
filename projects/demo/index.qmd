@@ -10,4 +10,7 @@ image: "images/thumbnail.webp"
 
 ## Project Overview
 
-Lorem Ipsum
+The project overview goes here - about 3 - 5 sentences about the project.
+
+
+
